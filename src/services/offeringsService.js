@@ -7,7 +7,7 @@ export const getOfferings = async () => {
     try {
         for (let pfi = 0; pfi < MOCKPFI.length; pfi++) {
             let index = pfi;
-            
+
             const offerings = await TbdexHttpClient.getOfferings({
                 pfiDid: MOCKPFI[index].did
             });            
