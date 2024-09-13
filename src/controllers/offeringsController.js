@@ -14,7 +14,7 @@ export const getOfferingsController = async (req, res) => {
 
         return res.status(500).json({
             success: false,
-            message: 'Get Offerings failed',
+            message: 'Get Offerings failed.',
         });
     } catch (error) {
         res.status(500).json({
