@@ -3,7 +3,7 @@ import { createExchangeController, getExchanges, createOrderController, closeOrd
 
 const router = express.Router();
 router.post('/create', createExchangeController);
-router.get('/all', getExchanges);
+router.get('/all/:userId', getExchanges);
 router.post('/order/create', createOrderController);
 router.put('/order/close', closeOrderController);
 

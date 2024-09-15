@@ -37,7 +37,7 @@ export const createExchangeController = async (req, res) => {
 
 export const getExchanges = async (req, res) => {
     try {
-        const { userId } = req.body;
+        const { userId } = req.params;
 
         if (!userId) {
             throw new Error("No userID specified")
