@@ -1,18 +1,15 @@
 import {v4} from 'uuid';
 
-export const saveData = async (db, data, vc) => {
+export const saveData = async (db, did, vc) => {
     const v4_ = v4();
 
     const userId = v4_;
     db.run(
-        `INSERT INTO user_dids (userId, vc, uri, document, metadata, privateKeys) VALUES (?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO user_dids (userId, did, vc) VALUES (?, ?, ?)`,
         [
           userId,
-          vc,
-          data.uri,
-          JSON.stringify(data.document),
-          JSON.stringify(data.metadata),
-          JSON.stringify(data.privateKeys),
+          JSON.stringify(did),
+          vc
         ],
         (err, rows) => {
           if (err) {
@@ -38,11 +35,30 @@ export const getData = (db, id) => {
             } else if (row) {
                 const data = {
                     userId: row.userId,
+                    did: JSON.parse(row.did),
                     vc: row.vc,
-                    uri: row.uri,
-                    document: JSON.parse(row.document),
-                    metadata: JSON.parse(row.metadata),
-                    privateKeys: JSON.parse(row.privateKeys),
+                };
+                resolve(data);
+            } else {
+                resolve(null); 
+            }
+        });
+
+        db.close();
+    });
+}
+
+export const getAllUserData = (db) => {
+    return new Promise((resolve, reject) => {
+        const query = `SELECT * FROM user_dids`;
+        db.get(query, (err, row) => {
+            if (err) {
+            reject(err);
+            } else if (row) {
+                const data = {
+                    userId: row.userId,
+                    did: JSON.parse(row.did),
+                    vc: row.vc,
                 };
                 resolve(data);
             } else {

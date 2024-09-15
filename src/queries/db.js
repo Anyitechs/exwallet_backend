@@ -12,11 +12,8 @@ export const initializeDatabase = () => {
       db.run(`
         CREATE TABLE IF NOT EXISTS user_dids (
           userId TEXT PRIMARY KEY,
-          vc TEXT,
-          uri TEXT,
-          document TEXT,
-          metadata TEXT,
-          privateKeys TEXT
+          did TEXT,
+          vc TEXT
         )
       `, (err) => {
         if (err) {
@@ -29,7 +26,7 @@ export const initializeDatabase = () => {
       });
     });
   });
-  
+
   return db;
 
 }
