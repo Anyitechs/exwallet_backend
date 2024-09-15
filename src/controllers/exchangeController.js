@@ -4,9 +4,9 @@ import { closeOrder, createExchange, createOrder, fetchExchanges } from "../serv
 
 export const createExchangeController = async (req, res) => {
     try {
-        const { userId, offering, amount, payoutDetails } = req.body;
+        const { userId, offering, amount, payoutDetails, payinDetails } = req.body;
 
-        if (!userId || !offering || !amount || !payoutDetails) {
+        if (!userId || !offering || !amount || !payoutDetails || !payinDetails) {
             throw new Error("incomplete fields. Please fill in all the details to proceed.")
         }
 
@@ -16,7 +16,11 @@ export const createExchangeController = async (req, res) => {
 
         console.log('customer details: ', customerDetails)
 
-        const exchangeDetails = { offering, amount, payoutDetails, customerCredentials: customerDetails.vc, customerDid: customerDetails.did };
+        console.log('payout details: ', payoutDetails);
+
+        console.log('payin details: ', payinDetails);
+
+        const exchangeDetails = { offering, amount, payoutDetails, payinDetails, customerCredentials: customerDetails.vc, customerDid: customerDetails.did };
 
         const rfq = await createExchange(exchangeDetails);
 

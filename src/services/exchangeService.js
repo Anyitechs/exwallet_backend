@@ -8,7 +8,7 @@ export const createExchange = async (exchangeDetails) => {
 
     try {
 
-        const { offering, amount, payoutDetails, customerCredentials, customerDid } = exchangeDetails;
+        const { offering, amount, payoutDetails, payinDetails, customerCredentials, customerDid } = exchangeDetails;
         
         const importedDid = await DidDht.import({ portableDid: customerDid });
 
@@ -17,7 +17,7 @@ export const createExchange = async (exchangeDetails) => {
             presentationDefinition: offering.data.requiredClaims
         });
     
-        console.log('selected credentials: ', selectedCredentials)
+        // console.log('selected credentials: ', selectedCredentials)
     
         const rfq = Rfq.create({
             metadata: {
@@ -30,7 +30,7 @@ export const createExchange = async (exchangeDetails) => {
                 payin: {
                     amount,
                     kind: offering.data.payin.methods[0].kind,
-                    paymentDetails: {}
+                    paymentDetails: payinDetails
                 },
                 payout: {
                     kind: offering.data.payout.methods[0].kind,
