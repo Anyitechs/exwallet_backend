@@ -6,6 +6,8 @@ export const createExchangeController = async (req, res) => {
     try {
         const { userId, offering, amount, payoutDetails, payinDetails } = req.body;
 
+        console.log("id: ", userId)
+
         if (!userId || !offering || !amount || !payoutDetails || !payinDetails) {
             throw new Error("incomplete fields. Please fill in all the details to proceed.")
         }
@@ -13,6 +15,13 @@ export const createExchangeController = async (req, res) => {
         const db = await initializeDatabase();
 
         const customerDetails = await getData(db, userId);
+
+        if (!customerDetails) {
+            return res.status(500).json({
+                success: false,
+                message: customerDetails
+            });
+        }
 
         console.log('customer details: ', customerDetails)
 

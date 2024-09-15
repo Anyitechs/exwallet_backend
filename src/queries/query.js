@@ -40,7 +40,7 @@ export const getData = (db, id) => {
                 };
                 resolve(data);
             } else {
-                resolve(null); 
+                resolve("User not found"); 
             }
         });
 
