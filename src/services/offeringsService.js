@@ -1,5 +1,5 @@
 import { TbdexHttpClient, Rfq, Quote, Order, OrderStatus, Close, Message } from '@tbdex/http-client';
-import { VerifiableCredential, PresentationExchange } from '@web5/credentials';
+
 import { MOCKPFI } from '../../mockPfi.js';
 
 export const getOfferings = async () => {
@@ -7,7 +7,7 @@ export const getOfferings = async () => {
     try {
         for (let pfi = 0; pfi < MOCKPFI.length; pfi++) {
             let index = pfi;
-            
+
             const offerings = await TbdexHttpClient.getOfferings({
                 pfiDid: MOCKPFI[index].did
             });            
@@ -22,3 +22,4 @@ export const getOfferings = async () => {
         console.log('error here: ', error);
     }
 }
+
